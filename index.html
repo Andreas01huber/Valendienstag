@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Für Sarah ❤️</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-main: #fff0f6;
+      --bg-soft: #ffe4ee;
+      --card: rgba(255, 255, 255, 0.86);
+      --text-main: #8a2d52;
+      --text-soft: #a34d70;
+      --accent: #ff4f92;
+      --accent-2: #ff75ab;
+      --white: #fff;
+      --shadow: 0 12px 40px rgba(255, 79, 146, 0.2);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Poppins", system-ui, -apple-system, sans-serif;
+      background: radial-gradient(circle at top, var(--bg-soft), var(--bg-main) 65%);
+      color: var(--text-main);
+      min-height: 100svh;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.25rem;
+      position: relative;
+    }
+
+    .hearts {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    .heart {
+      position: absolute;
+      bottom: -32px;
+      width: 14px;
+      height: 14px;
+      background: rgba(255, 118, 171, 0.75);
+      transform: rotate(45deg);
+      animation: floatUp linear forwards;
+      filter: drop-shadow(0 2px 2px rgba(255, 79, 146, 0.2));
+    }
+
+    .heart::before,
+    .heart::after {
+      content: "";
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: inherit;
+    }
+
+    .heart::before {
+      left: -7px;
+    }
+
+    .heart::after {
+      top: -7px;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) rotate(45deg) scale(0.8);
+        opacity: 0;
+      }
+      10% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-110vh) rotate(45deg) scale(1.2);
+        opacity: 0;
+      }
+    }
+
+    .container {
+      position: relative;
+      z-index: 2;
+      width: min(100%, 460px);
+      background: var(--card);
+      backdrop-filter: blur(10px);
+      border-radius: 28px;
+      padding: 2rem 1.25rem;
+      box-shadow: var(--shadow);
+      text-align: center;
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      min-height: 64svh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .screen {
+      display: none;
+      width: 100%;
+      animation: fadeIn 600ms ease;
+    }
+
+    .screen.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    h1,
+    h2 {
+      font-family: "Playfair Display", serif;
+      line-height: 1.2;
+      letter-spacing: 0.2px;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 7vw, 2.7rem);
+      margin-bottom: 1.8rem;
+      color: #922b58;
+    }
+
+    .message {
+      font-size: clamp(1rem, 4.2vw, 1.2rem);
+      color: var(--text-soft);
+      margin-bottom: 1.6rem;
+      line-height: 1.7;
+      min-height: 5.8rem;
+    }
+
+    .question {
+      font-size: clamp(1.55rem, 7vw, 2.2rem);
+      margin: 0.7rem 0 1.5rem;
+      color: #932e59;
+    }
+
+    .btn {
+      border: none;
+      border-radius: 999px;
+      background: linear-gradient(140deg, var(--accent), var(--accent-2));
+      color: var(--white);
+      font-size: 1rem;
+      font-weight: 600;
+      padding: 0.85rem 1.6rem;
+      box-shadow: 0 8px 24px rgba(255, 79, 146, 0.35);
+      cursor: pointer;
+      transition: transform 250ms ease, box-shadow 250ms ease, opacity 250ms ease;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+    }
+
+    .btn:active {
+      transform: scale(0.96);
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 12px 28px rgba(255, 79, 146, 0.4);
+    }
+
+    .choice-wrap {
+      position: relative;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+      margin-top: 0.5rem;
+      min-height: 5.2rem;
+      align-items: center;
+    }
+
+    .btn-no {
+      background: #ffd5e5;
+      color: #a23f68;
+      box-shadow: 0 8px 20px rgba(204, 119, 152, 0.28);
+      position: relative;
+    }
+
+    .hint {
+      margin-top: 0.9rem;
+      color: #b3577d;
+      font-size: 0.95rem;
+      min-height: 1.35rem;
+    }
+
+    .yes-screen h2 {
+      font-size: clamp(1.8rem, 7.5vw, 2.5rem);
+      margin-bottom: 1rem;
+    }
+
+    .yes-screen p {
+      font-size: clamp(1.05rem, 4.8vw, 1.24rem);
+      color: #9a3a63;
+      line-height: 1.6;
+    }
+
+    @media (min-width: 520px) {
+      .container {
+        padding: 2.4rem 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="hearts" id="hearts" aria-hidden="true"></div>
+
+  <main class="container">
+    <section class="screen active" id="start-screen">
+      <h1>Für Sarah ❤️</h1>
+      <button class="btn" id="open-btn" type="button">Öffnen</button>
+    </section>
+
+    <section class="screen" id="question-screen">
+      <p class="message" id="romantic-message"></p>
+      <h2 class="question">Willst du mein Valentinsdate sein? 💌</h2>
+      <div class="choice-wrap" id="choice-wrap">
+        <button class="btn" id="yes-btn" type="button">Ja ❤️</button>
+        <button class="btn btn-no" id="no-btn" type="button">Nein 🙈</button>
+      </div>
+      <p class="hint" id="hint-text" aria-live="polite"></p>
+    </section>
+
+    <section class="screen yes-screen" id="yes-screen">
+      <h2>Yay! ❤️</h2>
+      <p>Du hast mich zum glücklichsten Menschen gemacht ❤️</p>
+    </section>
+  </main>
+
+  <script>
+    const openBtn = document.getElementById("open-btn");
+    const startScreen = document.getElementById("start-screen");
+    const questionScreen = document.getElementById("question-screen");
+    const yesScreen = document.getElementById("yes-screen");
+    const yesBtn = document.getElementById("yes-btn");
+    const noBtn = document.getElementById("no-btn");
+    const hintText = document.getElementById("hint-text");
+    const romanticMessage = document.getElementById("romantic-message");
+    const heartsContainer = document.getElementById("hearts");
+
+    const messageFull = "Liebe Sarah,\nich habe etwas Wichtiges, das ich dich fragen möchte… ❤️";
+
+    function switchScreen(hideEl, showEl) {
+      hideEl.classList.remove("active");
+      showEl.classList.add("active");
+    }
+
+    function typeMessage(text, element, speed = 44) {
+      element.textContent = "";
+      let index = 0;
+      const timer = setInterval(() => {
+        element.textContent += text[index];
+        index += 1;
+        if (index >= text.length) {
+          clearInterval(timer);
+        }
+      }, speed);
+    }
+
+    function createFloatingHeart(isCelebration = false) {
+      const heart = document.createElement("span");
+      heart.className = "heart";
+      const size = isCelebration ? 12 + Math.random() * 22 : 10 + Math.random() * 14;
+      heart.style.left = `${Math.random() * 100}%`;
+      heart.style.width = `${size}px`;
+      heart.style.height = `${size}px`;
+      heart.style.animationDuration = `${isCelebration ? 2.8 + Math.random() * 2 : 4 + Math.random() * 3.8}s`;
+      heart.style.opacity = `${0.4 + Math.random() * 0.5}`;
+      heartsContainer.appendChild(heart);
+
+      setTimeout(() => heart.remove(), 7000);
+    }
+
+    function burstHearts() {
+      for (let i = 0; i < 60; i += 1) {
+        setTimeout(() => createFloatingHeart(true), i * 70);
+      }
+    }
+
+    setInterval(() => createFloatingHeart(false), 850);
+
+    openBtn.addEventListener("click", () => {
+      switchScreen(startScreen, questionScreen);
+      typeMessage(messageFull, romanticMessage);
+    });
+
+    yesBtn.addEventListener("click", () => {
+      switchScreen(questionScreen, yesScreen);
+      burstHearts();
+    });
+
+    let noClickCount = 0;
+    noBtn.addEventListener("click", () => {
+      noClickCount += 1;
+      hintText.textContent = "Bist du dir sicher? 🥺";
+
+      const wrap = document.getElementById("choice-wrap");
+      const maxX = Math.max(12, wrap.clientWidth - noBtn.offsetWidth - 12);
+      const maxY = 42;
+      const x = Math.random() * maxX;
+      const y = (Math.random() * 2 - 1) * maxY;
+
+      noBtn.style.transform = `translate(${x - maxX / 2}px, ${y}px) scale(${Math.max(0.55, 1 - noClickCount * 0.08)})`;
+      noBtn.style.transition = "transform 260ms ease";
+    });
+  </script>
+</body>
+</html>
